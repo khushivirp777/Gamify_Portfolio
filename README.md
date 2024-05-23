@@ -1,3 +1,5 @@
+  This Project is about gamify the portfolio making as it is somehow tidious and boring,the portfolio making process will be gamified so that user can enjoy portfolio making by going through different levels in this game.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
