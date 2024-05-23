@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3D Flipping Book</title>
+<style>
+  body, html {
+    height: 100%;
+    margin: 0;
+  }
+
+  .book {
+    width: 300px;
+    height: 400px;
+    perspective: 1000px;
+    margin: 50px auto;
+    position: relative;
+  }
+
+  .page {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+  }
+
+  .page:nth-child(odd) {
+    background-color: #f5f5f5;
+  }
+
+  .page:nth-child(even) {
+    background-color: #eee;
+  }
+
+  .page .content {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    backface-visibility: hidden;
+  }
+
+  .page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    transform-origin: right center;
+  }
+
+  .page.flipped {
+    transform: rotateY(-180deg);
+    transform-origin: left center;
+  }
+
+  .page:nth-child(odd) {
+    z-index: 1;
+  }
+
+  .page:nth-child(even) {
+    z-index: 2;
+  }
+
+  .answer-book {
+    width: 300px;
+    max-height: 150px; /* Adjust as needed */
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px auto;
+    border-radius: 5px;
+  }
+
+  #overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+
+  #overlay p {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 24px;
+  }
+</style>
+</head>
+<body>
+<div class="book">
+  <div class="page">
+    <div class="content">
+      <h2>Page 1</h2>
+      <p>Question for Page 1: What is your name?</p>
+      <input type="text" class="answer">
+    </div>
+  </div>
+  <div class="page">
+    <div class="content">
+      <h2>Page 2</h2>
+      <p>Question for Page 2: Where are you from?</p>
+      <input type="text" class="answer">
+    </div>
+  </div>
+  <div class="page">
+    <div class="content">
+      <h2>Page 3</h2>
+      <p>Question for Page 3: What is your favorite color?</p>
+      <input type="text" class="answer">
+    </div>
+  </div>
+  <div class="page">
+    <div class="content">
+      <h2>Page 4</h2>
+      <p>Question for Page 4: What is your favorite food?</p>
+      <input type="text" class="answer">
+    </div>
+  </div>
+  <div class="page">
+    <div class="content">
+      <h2>Page 5</h2>
+      <p>Question for Page 5: What is your hobby?</p>
+      <input type="text" class="answer">
+    </div>
+  </div>
+  <div class="page">
+    <div class="content">
+      <h2>Page 6</h2>
+      <p>Question for Page 6: What is your dream destination?</p>
+      <input type="text" class="answer">
+    </div>
+  </div>
+</div>
+
+<div class="answer-book" id="answerBook"></div> <!-- Answer book below the flipping book -->
+<div id="overlay">
+  <p>Time's up! Please complete your answers.</p>
+</div>
+
+<script>
+  const pages = document.querySelectorAll(".page");
+  const answerBook = document.getElementById("answerBook");
+  const overlay = document.getElementById("overlay");
+  let timer;
+
+  pages.forEach(page => {
+    page.addEventListener("click", () => {
+      const input = page.querySelector(".answer");
+      if (input && input.value.trim() !== "") {
+        page.classList.toggle("flipped");
+        // Display the answer in the answer book
+        answerBook.innerHTML += input.value + "<br>";
+      }
+    });
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!event.target.closest(".book")) {
+      const unansweredQuestions = document.querySelectorAll(".answer:not([value])");
+      if (unansweredQuestions.length > 0) {
+        overlay.style.display = "block";
+        timer = setTimeout(() => {
+          overlay.style.display = "none";
+          alert("Time's up! Please complete your answers.");
+        }, 5000); // Set timeout for 5 seconds (adjust as needed)
+      }
+    }
+  });
+
+  answerBook.addEventListener("input", () => {
+    clearTimeout(timer); // Reset the timer when user continues answering
+    overlay.style.display = "none";
+  });
+</script>
+</body>
+</html>

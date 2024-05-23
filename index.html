@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Sprite Sheet</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+
+        #book {
+            background-image: url('booked.png');
+            width: 510px; /* Adjust as needed */
+            height: 540px; /* Adjust as needed */
+            perspective: 1000px;
+            margin: 50px auto;
+            position: relative;
+        }
+
+        .page {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transform-style: preserve-3d;
+            transition: transform 1s;
+        }
+
+        .page .content {
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            backface-visibility: hidden;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            padding-top: 40px; /* Adjust as needed */
+        }
+
+        .page .content input[type="text"] {
+            width: 35%;
+            margin-top: 300px;
+            margin-left: 240px;
+            padding: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div id="book" class="book">
+        <!-- Page with a question and an input field -->
+        <div class="page" style="transform: translateX(0%);">
+            <div class="content">
+                <br>
+                <input type="text" class="answer" placeholder="Your answer...">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Array to store answers
+        const answers = [];
+        // Get the input field
+        const answerInput = document.querySelector('.answer');
+        // Initialize attempt counter
+        let attemptCount = 0;
+        const totalQuestions = 3; // Total number of questions, for testing purpose
+    
+        // Add event listener to handle Enter key press
+        answerInput.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                const answer = event.target.value;
+                console.log('Answer:', answer);
+                // Store the answer
+                answers.push(answer);
+                // Save the answers to cookies
+                document.cookie = `answers=${JSON.stringify(answers)}; path=/`;
+                // Clear the input field
+                event.target.value = '';
+                // Increment attempt count
+                attemptCount++;
+                // Hide the input field after answering all questions
+                if (attemptCount >= totalQuestions) {
+                    event.target.style.display = 'none';
+                    
+                    // Close the tab after 10 seconds
+                    setTimeout(() => {
+                        window.close();
+                    }, 10000);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
