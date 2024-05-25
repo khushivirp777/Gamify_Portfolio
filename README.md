@@ -1,8 +1,9 @@
- **Overview:**
+# Gamify_Portfolio
+**Overview:**
 Gamify Portfolio is an innovative web application designed to transform the traditional process of creating and maintaining a personal portfolio into an engaging and interactive experience.
 This project leverages gamification principles to motivate users to showcase their skills, achievements, projects, and academic records in a fun and dynamic way.
 
-**Key Features:**
+## Key Features:
 
 **User Levels and Progression:**
 
@@ -37,7 +38,7 @@ Provides APIs for data interaction and real-time updates.
 Stores user data, portfolio entries, and progress metrics.
 Ensures data integrity and supports complex queries for gamification features.
 
-# Getting Started with Create React App
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -107,4 +108,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# Gamify_Portfolio
